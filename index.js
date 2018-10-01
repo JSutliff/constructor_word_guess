@@ -37,17 +37,21 @@ var wordBank = [
 function newGame() {
   var randomIndex = Math.floor(Math.random() * wordBank.length - 1);
   currentWord = new Word(wordBank[randomIndex]);
-  guessesLeft = 10;
+  guessesRemaining = 10;
   game();
 }
 
 function game() {
-  if (guessesLeft > 0 && currentWord.string().indexOf("_") !== -1) {
+  if (guessesRemaining > 0 && currentWord.string().indexOf("_") !== -1) {
       console.log(currentWord.string());
 
       inquirer.prompt([{
           type: "input",
-          message: "Guess a letter:",
+          message: `
+          ===========================
+          Guess a letter from A-Z:
+          ===========================
+          ...`,
           name: "guess",
           validate: function (val) {
               if (val.toUpperCase() === val.toLowerCase() || val.length > 1) {
@@ -58,18 +62,35 @@ function game() {
       }]).then(function (resp) {
           var correct = currentWord.guess(resp.guess);
           if (correct) {
-              console.log("Correct!");
+              console.log(`
+              ===========================
+              Correct!
+              ===========================
+              `);
+              console.log(`
+              ===========================
+              Guesses Remaing: ${guessesRemaining}
+              ===========================
+              `)
           }
           else{
-              guessesLeft--;
-              console.log("Incorrect!");
-              console.log(guessesLeft + " guesses left");
+              guessesRemaining--;
+              console.log(`
+              ===========================
+              Correct!
+              ===========================
+              `);
+              console.log(`
+              ===========================
+              Guesses Remaing: ${guessesRemaining}
+              ===========================
+              `);
           }
           game();
       })
   }
   else{
-      if(guessesLeft === 0){
+      if(guessesRemaining === 0){
           console.log(`
            ===============================================
           |                                               |
