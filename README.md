@@ -40,6 +40,6 @@ node index.js
 
 * [Inquirer](https://www.npmjs.com/package/inquirer) - Command line user interface
 
-# Author 
+## Author 
 
 [Jason P. Sutliff](https://jsutliff.github.io/updatedPortfolio/)
